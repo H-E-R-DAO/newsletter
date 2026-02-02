@@ -34,5 +34,9 @@ var Config = {
 
   // optional: folder ID where new draft Docs go (root of Drive if blank)
   // get ID from the folder URL: drive.google.com/.../folders/FOLDER_ID
-  DRAFT_FOLDER_ID: ''
+  DRAFT_FOLDER_ID: '',
+
+  // Gemini: model for article generation. API key in Script Properties: GEMINI_API_KEY
+  // gemini-2.5-flash-lite is cost-efficient and often has better free-tier availability than 2.0-flash
+  GEMINI_MODEL: 'gemini-2.5-flash-lite'
 };

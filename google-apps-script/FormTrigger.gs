@@ -22,8 +22,17 @@ function testWithLastResponse() {
       SpreadsheetApp.getActiveSpreadsheet().toast('No article content from that row.');
       return;
     }
+    var bodyForDoc = article.body;
+    Logger.log('testWithLastResponse: calling Gemini for article...');
+    var aiBody = generateArticleFromQa(article.body, Config.CURRENT_FORM_ARTICLE_TYPE);
+    if (aiBody) {
+      bodyForDoc = aiBody;
+      Logger.log('testWithLastResponse: using AI-generated body (' + aiBody.length + ' chars)');
+    } else {
+      Logger.log('testWithLastResponse: using Q/A fallback (no AI body returned)');
+    }
     Logger.log('testWithLastResponse: creating Doc');
-    var docUrl = createArticleDoc(article.title, article.body);
+    var docUrl = createArticleDoc(article.title, bodyForDoc);
     Logger.log('Doc created: ' + docUrl);
     var articleType = Config.CURRENT_FORM_ARTICLE_TYPE || 'Member Spotlight';
     var prefix = Config.CURRENT_FORM_TASK_PREFIX || 'Member Spotlight';
@@ -61,8 +70,17 @@ function onFormSubmit(e) {
       SpreadsheetApp.getActiveSpreadsheet().toast('No article content from response.');
       return;
     }
+    var bodyForDoc = article.body;
+    Logger.log('onFormSubmit: calling Gemini for article...');
+    var aiBody = generateArticleFromQa(article.body, Config.CURRENT_FORM_ARTICLE_TYPE);
+    if (aiBody) {
+      bodyForDoc = aiBody;
+      Logger.log('onFormSubmit: using AI-generated body (' + aiBody.length + ' chars)');
+    } else {
+      Logger.log('onFormSubmit: using Q/A fallback (no AI body returned)');
+    }
 
-    var docUrl = createArticleDoc(article.title, article.body);
+    var docUrl = createArticleDoc(article.title, bodyForDoc);
     Logger.log('Doc created: ' + docUrl);
 
     var articleType = Config.CURRENT_FORM_ARTICLE_TYPE || 'Member Spotlight';
