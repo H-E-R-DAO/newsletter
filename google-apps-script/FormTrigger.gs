@@ -42,11 +42,16 @@ function testWithLastResponse() {
 /**
  * Runs when a new form response is submitted (install "On form submit" trigger).
  * Builds article from response, creates a Doc, appends task to the newsletter crew sheet.
+ * For manual testing, use testWithLastResponse() instead.
  */
 function onFormSubmit(e) {
-  Logger.log('Form submitted');
+  if (!e || !e.values || e.values.length === 0) {
+    Logger.log('onFormSubmit: no event data. Use testWithLastResponse() to test with the last row.');
+    return;
+  }
 
-  var values = e.values || [];
+  Logger.log('Form submitted');
+  var values = e.values;
   var sheet = e.range ? e.range.getSheet() : SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
 
