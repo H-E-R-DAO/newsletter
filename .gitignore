@@ -2,3 +2,5 @@
 google-apps-script/.clasp.json
 # real script IDs (copy from FORM_IDS.example.md and fill in)
 google-apps-script/FORM_IDS.md
+# Google API key (from Script Properties)
+google-apps-script/.env
