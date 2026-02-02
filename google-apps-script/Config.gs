@@ -32,9 +32,9 @@ var Config = {
   // new draft Doc: optional extra in file name (e.g. "Member Spotlight - "). Date (YYYY-MM-DD) is always prepended in code.
   DOC_TITLE_PREFIX: '',
 
-  // optional: folder ID where new draft Docs go (root of Drive if blank)
-  // get ID from the folder URL: drive.google.com/.../folders/FOLDER_ID
-  DRAFT_FOLDER_ID: '',
+  // folder where new draft Docs go (Drafts folder). Root of Drive if blank.
+  // from: https://drive.google.com/drive/u/0/folders/1anKyPLe5k11wxnRa8tSrB-q-wmEsFZ9s
+  DRAFT_FOLDER_ID: '1anKyPLe5k11wxnRa8tSrB-q-wmEsFZ9s',
 
   // Gemini: model for article generation. API key in Script Properties: GEMINI_API_KEY
   // gemini-2.5-flash-lite is cost-efficient and often has better free-tier availability than 2.0-flash
