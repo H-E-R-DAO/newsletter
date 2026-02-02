@@ -1,3 +1,4 @@
 # clasp links this folder to your Google project (contains scriptId)
 google-apps-script/.clasp.json
-
+# real script IDs (copy from FORM_IDS.example.md and fill in)
+google-apps-script/FORM_IDS.md
