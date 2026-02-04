@@ -26,8 +26,8 @@ var Config = {
 
   // when pushing to a form response sheet, set these for that form (used by onFormSubmit / testWithLastResponse)
   // use the same label as in ARTICLE_TYPES (e.g. 'Member Spotlight', 'Event Recap', 'Newsletter Submission', 'Partnerships Announcement')
-  CURRENT_FORM_ARTICLE_TYPE: 'Newsletter Submission',  // change when pushing to a different form
-  CURRENT_FORM_TASK_PREFIX: 'Newsletter Submission',    // task title = "<prefix>: <title>"; change when pushing to a different form
+  CURRENT_FORM_ARTICLE_TYPE: 'Event Recap',  // change when pushing to a different form
+  CURRENT_FORM_TASK_PREFIX: 'Event Recap',    // task title = "<prefix>: <title>"; change when pushing to a different form
 
   // new draft Doc: optional extra in file name (e.g. "Member Spotlight - "). Date (YYYY-MM-DD) is always prepended in code.
   DOC_TITLE_PREFIX: '',
