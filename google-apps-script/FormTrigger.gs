@@ -22,25 +22,21 @@ function testWithLastResponse() {
       SpreadsheetApp.getActiveSpreadsheet().toast('No article content from that row.');
       return;
     }
-    var bodyForDoc = article.body;
+    Logger.log('testWithLastResponse: creating Q&A doc');
+    var qaDocUrl = createArticleDoc(article.title, article.body, ' - Q&A');
     Logger.log('testWithLastResponse: calling Gemini for article...');
     var aiBody = generateArticleFromQa(article.body, Config.CURRENT_FORM_ARTICLE_TYPE);
-    if (aiBody) {
-      bodyForDoc = aiBody;
-      Logger.log('testWithLastResponse: using AI-generated body (' + aiBody.length + ' chars)');
-    } else {
-      Logger.log('testWithLastResponse: using Q/A fallback (no AI body returned)');
-    }
-    Logger.log('testWithLastResponse: creating Doc');
-    var docUrl = createArticleDoc(article.title, bodyForDoc);
-    Logger.log('Doc created: ' + docUrl);
+    var draftBody = aiBody || article.body;
+    Logger.log('testWithLastResponse: creating draft doc');
+    var docUrl = createArticleDoc(article.title, draftBody, '');
+    Logger.log('Doc created (draft): ' + docUrl + '; Q&A: ' + qaDocUrl);
     var articleType = Config.CURRENT_FORM_ARTICLE_TYPE || 'Member Spotlight';
     var prefix = Config.CURRENT_FORM_TASK_PREFIX || 'Member Spotlight';
     var taskTitle = prefix + ': ' + (article.title || 'Draft');
     Logger.log('testWithLastResponse: appending task to tracker');
     var appendedRow = appendArticleTask(articleType, taskTitle, docUrl, '');
     Logger.log('testWithLastResponse: task appended at row ' + appendedRow);
-    SpreadsheetApp.getActiveSpreadsheet().toast('Draft created and task added. Check Drive and the task sheet.');
+    SpreadsheetApp.getActiveSpreadsheet().toast('Q&A and draft docs created; task added. Check Drafts folder and task sheet.');
   } catch (err) {
     Logger.log('testWithLastResponse ERROR: ' + err.message);
     Logger.log(err.stack || err.toString());
@@ -70,25 +66,21 @@ function onFormSubmit(e) {
       SpreadsheetApp.getActiveSpreadsheet().toast('No article content from response.');
       return;
     }
-    var bodyForDoc = article.body;
+    Logger.log('onFormSubmit: creating Q&A doc');
+    createArticleDoc(article.title, article.body, ' - Q&A');
     Logger.log('onFormSubmit: calling Gemini for article...');
     var aiBody = generateArticleFromQa(article.body, Config.CURRENT_FORM_ARTICLE_TYPE);
-    if (aiBody) {
-      bodyForDoc = aiBody;
-      Logger.log('onFormSubmit: using AI-generated body (' + aiBody.length + ' chars)');
-    } else {
-      Logger.log('onFormSubmit: using Q/A fallback (no AI body returned)');
-    }
-
-    var docUrl = createArticleDoc(article.title, bodyForDoc);
-    Logger.log('Doc created: ' + docUrl);
+    var draftBody = aiBody || article.body;
+    Logger.log('onFormSubmit: creating draft doc');
+    var docUrl = createArticleDoc(article.title, draftBody, '');
+    Logger.log('Doc created (draft): ' + docUrl);
 
     var articleType = Config.CURRENT_FORM_ARTICLE_TYPE || 'Member Spotlight';
     var prefix = Config.CURRENT_FORM_TASK_PREFIX || 'Member Spotlight';
     var taskTitle = prefix + ': ' + (article.title || 'Draft');
     appendArticleTask(articleType, taskTitle, docUrl, '');
 
-    SpreadsheetApp.getActiveSpreadsheet().toast('Draft created and task added.');
+    SpreadsheetApp.getActiveSpreadsheet().toast('Q&A and draft docs created; task added.');
   } catch (err) {
     Logger.log('onFormSubmit ERROR: ' + err.message);
     Logger.log(err.stack || err.toString());

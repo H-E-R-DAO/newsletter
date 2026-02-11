@@ -11,7 +11,7 @@ var Config = {
     'July', 'August', 'September', 'October', 'November', 'December'],
 
   // cutoff day: before the 4th → current month's "tasks <month>"; on/after 4th → next month's
-  TASK_MONTH_CUTOFF_DAY: 4,
+  TASK_MONTH_CUTOFF_DAY: 15,
 
   // status for new article tasks – must match the Status column dropdown options exactly
   STATUS_FOR_NEW_ARTICLE_TASK: 'To Do',
